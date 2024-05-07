@@ -35,7 +35,7 @@ const useShoppingCartStore = create<CartState>((set) => ({
         set ((state) => ({
             cartProduts: state.cartProduts.filter((item) => item.id !== productId)
         })),
-    clearCart: () => set({cartProduts:[]})
+    clearCart: () => set({ cartProduts: []})
 }))
 
 export default useShoppingCartStore;

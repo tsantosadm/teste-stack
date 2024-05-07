@@ -130,7 +130,7 @@ const ShoppingProducts = () => {
           <ListItem>
             <ListItemText primary={`Total de Itens: ${totalItems}`} />
           </ListItem>
-          <Button onClick={() => clearCart}>Limpar Carrinho</Button>
+          <Button onClick={clearCart}>Limpar Carrinho</Button>
         </List>
       </Drawer>
       <Button
