@@ -4,7 +4,7 @@ import { CartState } from './interfaces';
 const useShoppingCartStore = create<CartState>((set) => ({
     allProductos: [],
     cartProduts: [],
-    addProductCart: (product) => {
+    addProductCart: (product) =>
         set((state) => {
             const existProduct = state.cartProduts.find((item) => item.id === product.id);
             if (existProduct) {
@@ -18,8 +18,19 @@ const useShoppingCartStore = create<CartState>((set) => ({
                     cartProduts: [...state.cartProduts, { ...product, quantity: 1 }]
                 };
             }
-        })
-    }
+        }),
+    removeOneItemQtd: (productId) =>
+        set((state) => ({
+            cartProduts: state.cartProduts.map((item) =>
+                item.id === productId && item.quantity && item.quantity > 0
+                    ? { ...item, quantity: item.quantity - 1 }
+                    : item)
+        })),
+    addOneItemQtd: (productId) =>
+        set((state) => ({
+            cartProduts: state.cartProduts.map((item) =>
+                item.id === productId ? { ...item, quantity: (item.quantity || 0) + 1 } : item)
+        }))
 }))
 
 export default useShoppingCartStore;

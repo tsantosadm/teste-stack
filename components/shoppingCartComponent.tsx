@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Card, CardActions, CardContent, CardMedia, Container, Divider, Drawer, Grid, IconButton, List, ListItem, ListItemText, TextField, Typography } from '@mui/material'
 import { AddCircleOutline, RemoveCircleOutline, ShoppingCart } from '@mui/icons-material'
 import axios from 'axios';
@@ -7,8 +7,9 @@ import { useQuery } from 'react-query';
 import useShoppingCartStore from '../utils/productStore';
 
 const ShoppingProducts = () => {
-  const {cartProduts, addProductCart} = useShoppingCartStore();
+  const {cartProduts, addProductCart, removeOneItemQtd, addOneItemQtd} = useShoppingCartStore();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [totalItems, setTotalItems] = useState(0);
 
   const listProducts = async () => {
     try {
@@ -21,6 +22,11 @@ const ShoppingProducts = () => {
   }
 
   const { data: allProducts } = useQuery('products', listProducts)
+
+  useEffect(() => {
+    const totalItemsProducts = cartProduts.reduce((total, item) => total + (item.quantity ?? 0), 0);
+    setTotalItems(totalItemsProducts);
+  },[cartProduts])
 
   const openDrawer = () => {
     setIsDrawerOpen(true)
@@ -50,10 +56,10 @@ const ShoppingProducts = () => {
                 <CardMedia
                   component="img"
                   alt="green iguana"
-                  image={item.images}
+                  image={item.images[0]}
                 />
-                <Typography>Titulo</Typography>
-                <Typography>Price: $ Preço</Typography>
+                <Typography>{item.title}</Typography>
+                <Typography>Price: $ {item.price}</Typography>
               </CardContent>
               <CardActions>
                 <Button onClick={() => addProductCart(item)}>Adicionar ao Carrinho</Button>
@@ -74,7 +80,7 @@ const ShoppingProducts = () => {
             <IconButton
               edge="end"
               aria-label="decrease"
-              onClick={() => alert}
+              onClick={() => removeOneItemQtd(item.id)}
               className="button_decrease_qtd_item">
               <RemoveCircleOutline />
             </IconButton>
@@ -82,7 +88,7 @@ const ShoppingProducts = () => {
               <IconButton
                 edge="end"
                 aria-label="increase"
-                onClick={() => alert}
+                onClick={() => addOneItemQtd(item.id)}
                 className='button_increase_tqd_item'>
                 <AddCircleOutline />
               </IconButton>
@@ -92,7 +98,7 @@ const ShoppingProducts = () => {
           
           <Divider />
           <ListItem>
-            <ListItemText primary={"Total Items"} />
+            <ListItemText primary={`Total de Itens: ${totalItems}`} />
           </ListItem>
         </List>
       </Drawer>
@@ -103,7 +109,7 @@ const ShoppingProducts = () => {
         onClick={openDrawer}
         sx={{ position: "fixed", bottom: 16, right: 16 }}
         className='cart'>
-        Carrinho
+        Carrinho {totalItems}
       </Button>
     </Container>
   );
