@@ -20,17 +20,19 @@ export interface Product {
     title: string;
     price: number;
     images: string[]
-    quantity: number;
+    quantity?: number;
 }
 
 
 export interface CartState {
+    allProductos: Product[];
     cartProduts: Product[];
     addProductCart: (product: Product) => void;
     removeProductCart: (productId: number) => void;
-    removeOneItemQtd: (product: number) => void;
-    productSearch: string;
-    onChangeSearch: (value: string) => void
+    removeOneItemQtd: (productId: number) => void;
+    addOneItemQtd: (productId: number) => void;
+    onChangeSearch: (value: string) => void;
+    clearCart: () => void;
 }
 
 
