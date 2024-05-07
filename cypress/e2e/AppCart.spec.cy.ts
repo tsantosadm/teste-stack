@@ -1,23 +1,21 @@
 describe('Deve acessar a Index de Listagem de Produtos', () => {
-  it('passes', () => {
+  it('deve acessar a index', () => {
     cy.visit("http://localhost:3000");
   })
 })
 
 describe("Deve Adicionar Produto ao carrinho clicando no botão", () => {
-  it("should add products to cart when 'Adicionar ao Carrinho' button is clicked", () => {
+  it("deve adicionar produto ao carrinho clicando 'Adicionar ao Carrinho' do card do produto", () => {
     cy.visit("http://localhost:3000");
 
-      // Clica no botão "Adicionar ao Carrinho" de um produto
       cy.get('button').contains('Adicionar ao Carrinho').first().click();
 
-      // Verifica se o ícone do carrinho mostra a quantidade correta de itens
       cy.get('button').contains('Carrinho (1)').should('exist');
   });
 });
 
-describe("Increase and decrease product quantity in cart", () => {
-  it("should increase and decrease item quantity product speficique ", () => {
+describe("aumentar e diminuir a quantidade de item de cada produto", () => {
+  it("deve acrescentar quantidade de item quando clicar no botão (+) e diminuir quando clicar no botão (-)", () => {
       cy.visit("http://localhost:3000");
 
       cy.get('button').contains('Adicionar ao Carrinho').first().click();
@@ -35,8 +33,8 @@ describe("Increase and decrease product quantity in cart", () => {
 });
 
 
-describe("Clear all products from cart", () => {
-  it("should clear all products from cart when 'Excluir Todos' button is clicked", () => {
+describe("Limpar o carrinho", () => {
+  it("deve limpar todo o carrinho quando clicar no botão 'Limpar Carrinho'", () => {
       cy.visit("http://localhost:3000");
 
       // Adiciona um produto ao carrinho
