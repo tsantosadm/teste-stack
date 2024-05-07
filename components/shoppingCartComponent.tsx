@@ -4,8 +4,10 @@ import { AddCircleOutline, RemoveCircleOutline, ShoppingCart } from '@mui/icons-
 import axios from 'axios';
 import { Product } from '../utils/interfaces';
 import { useQuery } from 'react-query';
+import useShoppingCartStore from '../utils/productStore';
 
 const ShoppingProducts = () => {
+  const {cartProduts, addProductCart} = useShoppingCartStore();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const listProducts = async () => {
@@ -54,7 +56,7 @@ const ShoppingProducts = () => {
                 <Typography>Price: $ Preço</Typography>
               </CardContent>
               <CardActions>
-                <Button onClick={() => alert}>Adicionar ao Carrinho</Button>
+                <Button onClick={() => addProductCart(item)}>Adicionar ao Carrinho</Button>
               </CardActions>
             </Card>
           </Grid>
@@ -62,12 +64,13 @@ const ShoppingProducts = () => {
       </Grid>
       <Drawer anchor='right' open={isDrawerOpen} onClose={closeDrawer}>
         <List>
-          <ListItem>
+          {cartProduts.map((item: Product) => (
+            <ListItem>
             <CardMedia
               component="img"
-              alt={"img"}
+              alt={item.title}
               style={{ width: 100, height: 100, marginRight: 10 }} />
-            <ListItemText primary={"Titulo"} secondary={`Price: $${"Price"} - Quantity: ${"100,00"}`} />
+            <ListItemText primary={item.title} secondary={`Price: $${item.price} - Quantity: ${item.quantity}`} />
             <IconButton
               edge="end"
               aria-label="decrease"
@@ -85,6 +88,8 @@ const ShoppingProducts = () => {
               </IconButton>
             </IconButton>
           </ListItem>
+          ))}
+          
           <Divider />
           <ListItem>
             <ListItemText primary={"Total Items"} />

@@ -26,8 +26,8 @@ export interface Product {
 
 export interface CartState {
     allProductos: Product[];
-    // cartProduts: Product[];
-    // addProductCart: (product: Product) => void;
+    cartProduts: Product[];
+    addProductCart: (product: Product) => void;
     // removeProductCart: (productId: number) => void;
     // removeOneItemQtd: (productId: number) => void;
     // addOneItemQtd: (productId: number) => void;
