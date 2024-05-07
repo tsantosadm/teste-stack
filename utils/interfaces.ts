@@ -30,9 +30,8 @@ export interface CartState {
     addProductCart: (product: Product) => void;
     removeOneItemQtd: (productId: number) => void;
     addOneItemQtd: (productId: number) => void;
-    // removeProductCart: (productId: number) => void;
-    // onChangeSearch: (value: string) => void;
-    // clearCart: () => void;
+    removeProductCart: (productId: number) => void;
+    clearCart: () => void;
 }
 
 

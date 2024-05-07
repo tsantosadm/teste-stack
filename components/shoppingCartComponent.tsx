@@ -7,7 +7,7 @@ import { useQuery } from 'react-query';
 import useShoppingCartStore from '../utils/productStore';
 
 const ShoppingProducts = () => {
-  const {cartProduts, addProductCart, removeOneItemQtd, addOneItemQtd} = useShoppingCartStore();
+  const {cartProduts, addProductCart, removeOneItemQtd, addOneItemQtd, removeProductCart, clearCart} = useShoppingCartStore();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [totalItems, setTotalItems] = useState(0);
   const [searchProduct, setSearchProduct] = useState('');
@@ -123,13 +123,14 @@ const ShoppingProducts = () => {
                 <AddCircleOutline />
               </IconButton>
             </IconButton>
+            <Button onClick={() => removeProductCart(item.id)}>Excluir</Button>
           </ListItem>
           ))}
-          
           <Divider />
           <ListItem>
             <ListItemText primary={`Total de Itens: ${totalItems}`} />
           </ListItem>
+          <Button onClick={() => clearCart}>Limpar Carrinho</Button>
         </List>
       </Drawer>
       <Button

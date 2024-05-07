@@ -30,7 +30,12 @@ const useShoppingCartStore = create<CartState>((set) => ({
         set((state) => ({
             cartProduts: state.cartProduts.map((item) =>
                 item.id === productId ? { ...item, quantity: (item.quantity || 0) + 1 } : item)
-        }))
+        })),
+    removeProductCart: (productId) => 
+        set ((state) => ({
+            cartProduts: state.cartProduts.filter((item) => item.id !== productId)
+        })),
+    clearCart: () => set({cartProduts:[]})
 }))
 
 export default useShoppingCartStore;
