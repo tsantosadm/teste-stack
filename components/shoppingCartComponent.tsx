@@ -10,6 +10,7 @@ const ShoppingProducts = () => {
   const {cartProduts, addProductCart, removeOneItemQtd, addOneItemQtd} = useShoppingCartStore();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [totalItems, setTotalItems] = useState(0);
+  const [searchProduct, setSearchProduct] = useState('');
 
   const listProducts = async () => {
     try {
@@ -22,6 +23,14 @@ const ShoppingProducts = () => {
   }
 
   const { data: allProducts } = useQuery('products', listProducts)
+
+  const searchProductChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchProduct(event.target.value);
+  }
+
+  const filterProduct = (allProducts ?? []).filter((product) => 
+  product && product.title.includes(searchProduct)
+)
 
   useEffect(() => {
     const totalItemsProducts = cartProduts.reduce((total, item) => total + (item.quantity ?? 0), 0);
@@ -45,11 +54,12 @@ const ShoppingProducts = () => {
       <TextField
         label="Buscar Produto"
         variant="outlined"
-        value={""}
+        value={searchProduct}
+        onChange={searchProductChange}
         fullWidth
         sx={{ marginBottom: 2 }} />
       <Grid container spacing={2}>
-        {allProducts && allProducts.map((item: Product) => (
+        {searchProduct && allProducts ? filterProduct.map((item: Product) => (
           <Grid item xs={12} sm={6} md={4} key={item.id}>
             <Card>
               <CardContent>
@@ -66,7 +76,27 @@ const ShoppingProducts = () => {
               </CardActions>
             </Card>
           </Grid>
-        ))}
+        )):
+        
+          allProducts && allProducts.map((item: Product) => (
+            <Grid item xs={12} sm={6} md={4} key={item.id}>
+            <Card>
+              <CardContent>
+                <CardMedia
+                  component="img"
+                  alt="green iguana"
+                  image={item.images[0]}
+                />
+                <Typography>{item.title}</Typography>
+                <Typography>Price: $ {item.price}</Typography>
+              </CardContent>
+              <CardActions>
+                <Button onClick={() => addProductCart(item)}>Adicionar ao Carrinho</Button>
+              </CardActions>
+            </Card>
+          </Grid>
+          ))
+        }
       </Grid>
       <Drawer anchor='right' open={isDrawerOpen} onClose={closeDrawer}>
         <List>
