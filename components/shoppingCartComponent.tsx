@@ -7,7 +7,7 @@ import { useQuery } from 'react-query';
 import useShoppingCartStore from '../utils/productStore';
 
 const ShoppingProducts = () => {
-  const {cartProduts, addProductCart, removeOneItemQtd, addOneItemQtd, removeProductCart, clearCart} = useShoppingCartStore();
+  const { cartProduts, addProductCart, removeOneItemQtd, addOneItemQtd, removeProductCart, clearCart } = useShoppingCartStore();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [totalItems, setTotalItems] = useState(0);
   const [searchProduct, setSearchProduct] = useState('');
@@ -28,14 +28,14 @@ const ShoppingProducts = () => {
     setSearchProduct(event.target.value);
   }
 
-  const filterProduct = (allProducts ?? []).filter((product) => 
-  product && product.title.includes(searchProduct)
-)
+  const filterProduct = (allProducts ?? []).filter((product) =>
+    product && product.title.includes(searchProduct)
+  )
 
   useEffect(() => {
     const totalItemsProducts = cartProduts.reduce((total, item) => total + (item.quantity ?? 0), 0);
     setTotalItems(totalItemsProducts);
-  },[cartProduts])
+  }, [cartProduts])
 
   const openDrawer = () => {
     setIsDrawerOpen(true)
@@ -52,6 +52,7 @@ const ShoppingProducts = () => {
         Shopping Cart StackTechnology
       </Typography>
       <TextField
+        id='inputProduct'
         label="Buscar Produto"
         variant="outlined"
         value={searchProduct}
@@ -76,25 +77,25 @@ const ShoppingProducts = () => {
               </CardActions>
             </Card>
           </Grid>
-        )):
-        
+        )) :
+
           allProducts && allProducts.map((item: Product) => (
             <Grid item xs={12} sm={6} md={4} key={item.id}>
-            <Card>
-              <CardContent>
-                <CardMedia
-                  component="img"
-                  alt="green iguana"
-                  image={item.images[0]}
-                />
-                <Typography>{item.title}</Typography>
-                <Typography>Price: $ {item.price}</Typography>
-              </CardContent>
-              <CardActions>
-                <Button onClick={() => addProductCart(item)}>Adicionar ao Carrinho</Button>
-              </CardActions>
-            </Card>
-          </Grid>
+              <Card>
+                <CardContent>
+                  <CardMedia
+                    component="img"
+                    alt="green iguana"
+                    image={item.images[0]}
+                  />
+                  <Typography>{item.title}</Typography>
+                  <Typography>Price: $ {item.price}</Typography>
+                </CardContent>
+                <CardActions>
+                  <Button onClick={() => addProductCart(item)}>Adicionar ao Carrinho</Button>
+                </CardActions>
+              </Card>
+            </Grid>
           ))
         }
       </Grid>
@@ -102,29 +103,29 @@ const ShoppingProducts = () => {
         <List>
           {cartProduts.map((item: Product) => (
             <ListItem>
-            <CardMedia
-              component="img"
-              alt={item.title}
-              style={{ width: 100, height: 100, marginRight: 10 }} />
-            <ListItemText primary={item.title} secondary={`Price: $${item.price} - Quantity: ${item.quantity}`} />
-            <IconButton
-              edge="end"
-              aria-label="decrease"
-              onClick={() => removeOneItemQtd(item.id)}
-              className="button_decrease_qtd_item">
-              <RemoveCircleOutline />
-            </IconButton>
-            <IconButton>
+              <CardMedia
+                component="img"
+                alt={item.title}
+                style={{ width: 100, height: 100, marginRight: 10 }} />
+              <ListItemText primary={item.title} secondary={`Price: $${item.price} - Quantity: ${item.quantity}`} />
               <IconButton
                 edge="end"
-                aria-label="increase"
-                onClick={() => addOneItemQtd(item.id)}
-                className='button_increase_tqd_item'>
-                <AddCircleOutline />
+                aria-label="decrease"
+                className='button_remove_qtd_item'
+                onClick={() => removeOneItemQtd(item.id)}>
+                <RemoveCircleOutline />
               </IconButton>
-            </IconButton>
-            <Button onClick={() => removeProductCart(item.id)}>Excluir</Button>
-          </ListItem>
+              <IconButton>
+                <IconButton
+                  edge="end"
+                  aria-label="increase"
+                  className='button_add_qtd_item'
+                  onClick={() => addOneItemQtd(item.id)} >
+                  <AddCircleOutline />
+                </IconButton>
+              </IconButton>
+              <Button onClick={() => removeProductCart(item.id)}>Excluir</Button>
+            </ListItem>
           ))}
           <Divider />
           <ListItem>
@@ -140,7 +141,7 @@ const ShoppingProducts = () => {
         onClick={openDrawer}
         sx={{ position: "fixed", bottom: 16, right: 16 }}
         className='cart'>
-        Carrinho {totalItems}
+        Carrinho ({totalItems})
       </Button>
     </Container>
   );
