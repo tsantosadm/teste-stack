@@ -106,6 +106,7 @@ const ShoppingProducts = () => {
               <CardMedia
                 component="img"
                 alt={item.title}
+                image={item.images[0]}
                 style={{ width: 100, height: 100, marginRight: 10 }} />
               <ListItemText primary={item.title} secondary={`Price: $${item.price} - Quantity: ${item.quantity}`} />
               <IconButton

@@ -1,8 +1,28 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Primeira ação
 
-## Getting Started
+Primeiro execute no Terminal um dos comandos abaixo para Instalação dos Pacotes necessários de uso da aplicação:
 
-First, run the development server:
+```bash
+npm install
+# or
+yarn install
+```
+
+## Pacotes de dependências da aplicação
+
+@mui/material": "5",
+axios: ^1.6.8,
+next: 12,
+react: 18.3.1,
+react-dom: 18.3.1,
+react-query: ^3.39.3,
+typescript: ^5.4.5,
+zustand: ^4.5.2
+"cypress": "^13.8.1",
+
+## Startando o projeto da aplicação
+
+Execute no Terminal o comando:
 
 ```bash
 npm run dev
@@ -10,25 +30,41 @@ npm run dev
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Acesse no seu Navegador [http://localhost:3000](http://localhost:3000) e veja o resultado.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Ver e Analisar teste 2E2 da aplicação com CYPRESS
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+> Com a aplicação já ativa e rodando, abra outro terminal, em modo Split.
+> No terminal novo aberto, execute o comando:
+    ```bash
+    npx cypress open
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Vai abrir a janela do Cypress dando boas-vindas, com 2 cards buttons options:
 
-## Learn More
+1 - E2E Testing
+2 - Component Testing
 
-To learn more about Next.js, take a look at the following resources:
+Escolha a opção 1 - E2E Testing
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Será mostrado as opções de Browser (Navegadores) para visualizar o teste dinamicamente 
+Escolha o de sua preferência e clique no botão:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+> `Start 2E2 Testing in (browser escolhido)`
 
-## Deploy on Vercel
+Será direcionado para a janela de ações:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+No menu lateral à esquerda, verifique se está selecionado/marcado a opção `Specs`
+Verfique também se a Janela em questão tem o mesmo nome no título.
+verifique se tem os botões:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1 - E2E specs
+2 - Component specs
+
+Clique e defina a escolha ao botão: `E2E specs`
+
+Visualize a pasta: `cypress/e2e`
+
+Dentro dela está o arquivo de testes da aplicação, localizando, clique sobre o:
+
+`AppCart.spec.cy.ts`

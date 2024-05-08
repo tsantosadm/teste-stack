@@ -56,13 +56,13 @@ describe("Buscar Produto e Filtrar Especificamente", () => {
       cy.visit("http://localhost:3000");
 
       // Adiciona um produto ao carrinho
-      cy.get("input[id='inputProduct']").type("Umair's Product");
+      cy.get("input[id='inputProduct']").type("Vibrant Pink Classic Sneakers");
 
       cy.get('button').contains('Adicionar ao Carrinho').first().click();
 
       cy.get(".cart").click();
 
-      cy.get("span[class='MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-10hburv-MuiTypography-root']").contains("Umair's Product");
+      cy.get("span[class='MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-10hburv-MuiTypography-root']").contains("Vibrant Pink Classic Sneakers");
 
   });
 });
