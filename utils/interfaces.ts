@@ -32,6 +32,7 @@ export interface CartState {
     addOneItemQtd: (productId: number) => void;
     removeProductCart: (productId: number) => void;
     clearCart: () => void;
+    allProducts: () => Promise<void>
 }
 
 

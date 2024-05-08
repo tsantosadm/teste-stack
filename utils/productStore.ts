@@ -4,6 +4,20 @@ import { CartState } from './interfaces';
 const useShoppingCartStore = create<CartState>((set) => ({
     allProductos: [],
     cartProduts: [],
+    allProducts: async () => {
+        try {
+          const response = await fetch("https://api.escuelajs.co/api/v1/products");
+          if (!response.ok) {
+            throw new Error('Erro ao buscar produtos');
+          }
+          const products = await response.json();
+          console.log('Produtos recebidos:', products);
+          set({ allProductos: products });
+          products(products);
+        } catch (error) {
+          console.error('Erro ao Listar Produtos: ', error);
+        }
+      },
     addProductCart: (product) =>
         set((state) => {
             const existProduct = state.cartProduts.find((item) => item.id === product.id);

@@ -10,6 +10,7 @@ yarn install
 
 ## Pacotes de dependências da aplicação
 
+```bash
 @mui/material": "5",
 axios: ^1.6.8,
 next: 12,
@@ -18,7 +19,8 @@ react-dom: 18.3.1,
 react-query: ^3.39.3,
 typescript: ^5.4.5,
 zustand: ^4.5.2
-"cypress": "^13.8.1",
+cypress: ^13.8.1",
+```
 
 ## Startando o projeto da aplicação
 

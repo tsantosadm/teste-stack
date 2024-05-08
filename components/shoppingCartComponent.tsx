@@ -1,35 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Card, CardActions, CardContent, CardMedia, Container, Divider, Drawer, Grid, IconButton, List, ListItem, ListItemText, TextField, Typography } from '@mui/material'
 import { AddCircleOutline, RemoveCircleOutline, ShoppingCart } from '@mui/icons-material'
-import axios from 'axios';
 import { Product } from '../utils/interfaces';
-import { useQuery } from 'react-query';
 import useShoppingCartStore from '../utils/productStore';
 
 const ShoppingProducts = () => {
-  const { cartProduts, addProductCart, removeOneItemQtd, addOneItemQtd, removeProductCart, clearCart } = useShoppingCartStore();
+  const { cartProduts, addProductCart, removeOneItemQtd, addOneItemQtd, removeProductCart, clearCart, allProducts, allProductos } = useShoppingCartStore();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [totalItems, setTotalItems] = useState(0);
   const [searchProduct, setSearchProduct] = useState('');
 
-  const listProducts = async () => {
-    try {
-      const response = await axios.get("https://api.escuelajs.co/api/v1/products");
-      const products: Product[] = response.data;
-      return products;
-    } catch (error) {
-      console.error('Erro ao Listar Produtos: ', error);
-    }
-  }
+  useEffect(() => {
+    allProducts();
+  }, []);
 
-  const { data: allProducts } = useQuery('products', listProducts)
 
   const searchProductChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchProduct(event.target.value);
   }
 
-  const filterProduct = (allProducts ?? []).filter((product) =>
-    product && product.title.includes(searchProduct)
+  const filterProduct = allProductos.filter((product) =>
+    product.title.includes(searchProduct)
   )
 
   useEffect(() => {
@@ -79,7 +70,7 @@ const ShoppingProducts = () => {
           </Grid>
         )) :
 
-          allProducts && allProducts.map((item: Product) => (
+          filterProduct.map((item: Product) => (
             <Grid item xs={12} sm={6} md={4} key={item.id}>
               <Card>
                 <CardContent>
